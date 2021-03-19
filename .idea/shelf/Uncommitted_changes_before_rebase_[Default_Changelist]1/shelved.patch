@@ -1,0 +1,117 @@
+Index: lib/net/http_service.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'dart:convert';\nimport 'dart:io';\n\nimport 'package:flutter_shop/model/AllModel.dart';\nimport 'package:flutter_shop/model/GridModel/GridData.dart';\nimport 'package:flutter_shop/model/HomeModel/homeData.dart';\nimport 'package:flutter_shop/model/RecommendModel/RecommendData.dart';\nimport 'package:flutter_shop/net/http_url.dart';\n\n///网络请求\nAllModel allModel = new AllModel();\n\nFuture getHomePageContent() async {\n  try {\n    HttpClient httpClient = new HttpClient();\n    var httpClientRequest =\n        await httpClient.postUrl(Uri.parse(servicePath[\"home\"]));\n    httpClientRequest.headers.contentType =\n        ContentType(\"application/json\", \"charset=utf-8\");\n    var httpClientResponse = await httpClientRequest.close();\n    if (httpClientResponse.statusCode == 200) {\n      var s = await httpClientResponse.transform(Utf8Decoder()).join();\n      var homeData = HomeData.fromJson(json.decode(s.toString()));\n      //print(homeData.data.dataItemList[0].image);\n      return homeData.data.dataItemList;\n    } else {\n      throw Exception(\"后端出现异常\");\n    }\n  } catch (e) {\n    print(e);\n    throw Exception(\"home网络请求出现异常\");\n  }\n}\n\nFuture getGridViewContent() async {\n  return getHomePageContent().then((value) async {\n    try {\n      HttpClient httpClient = new HttpClient();\n      var httpClientRequest =\n          await httpClient.postUrl(Uri.parse(servicePath[\"grid\"]));\n      httpClientRequest.headers.contentType =\n          ContentType(\"application/json\", \"charset=utf-8\");\n      var httpClientResponse = await httpClientRequest.close();\n      if (httpClientResponse.statusCode == 200) {\n        var s = await httpClientResponse.transform(Utf8Decoder()).join();\n        var gridData = GridData.fromJson(json.decode(s.toString()));\n        print(gridData.data.dataItemList);\n        allModel.dataItemList = value as List;\n        allModel.gridDataItemList = gridData.data.dataItemList;\n        return allModel;\n      } else {\n        throw Exception(\"后端出现异常\");\n      }\n    } catch (e) {\n      print(e);\n      throw Exception(\"home网络请求出现异常\");\n    }\n  });\n}\n\nFuture getRecommendContent() async {\n  return getGridViewContent().then((value) async {\n    try {\n      HttpClient httpClient = new HttpClient();\n      var httpClientRequest =\n          await httpClient.postUrl(Uri.parse(servicePath[\"recommend\"]));\n      httpClientRequest.headers.contentType =\n          ContentType(\"application/json\", \"charset=utf-8\");\n      var httpClientResponse = await httpClientRequest.close();\n      if (httpClientResponse.statusCode == 200) {\n        var s = await httpClientResponse.transform(Utf8Decoder()).join();\n        var recommendData = RecommendData.fromJson(json.decode(s.toString()));\n        print(recommendData.data.dataItemList[0].firstPrice);\n        allModel.recommendDataItemList = recommendData.data.dataItemList;\n        return allModel;\n      } else {\n        throw Exception(\"后端出现异常\");\n      }\n    } catch (e) {\n      print(e);\n      throw Exception(\"home网络请求出现异常\");\n    }\n  });\n}\n\nFuture get\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/net/http_service.dart	(revision 22a23e2d017f307cac8757d9faf8e1fe19d7d6f4)
++++ lib/net/http_service.dart	(date 1616052364000)
+@@ -83,4 +83,4 @@
+   });
+ }
+ 
+-Future get
++
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"NONE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"a1b31fd7-b332-4633-8473-407bbc4409df\" name=\"Default Changelist\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"1pv6QX9LXNr4JywY36jWKTRkenu\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"android.sdk.path\" value=\"$USER_HOME$/Library/Android/sdk\" />\n    <property name=\"dart.analysis.tool.window.visible\" value=\"false\" />\n    <property name=\"io.flutter.reload.alreadyRun\" value=\"true\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.pluginManager\" />\n    <property name=\"show.migrate.to.gradle.popup\" value=\"false\" />\n  </component>\n  <component name=\"RunManager\">\n    <configuration name=\"main.dart\" type=\"FlutterRunConfigurationType\" factoryName=\"Flutter\">\n      <option name=\"filePath\" value=\"$PROJECT_DIR$/lib/main.dart\" />\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"SvnConfiguration\">\n    <configuration />\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"a1b31fd7-b332-4633-8473-407bbc4409df\" name=\"Default Changelist\" comment=\"\" />\n      <created>1616051200085</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1616051200085</updated>\n    </task>\n    <servers />\n  </component>\n  <component name=\"WindowStateProjectService\">\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1616051508487\">\n      <screen x=\"0\" y=\"0\" width=\"2560\" height=\"1440\" />\n    </state>\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.bottom/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440\" timestamp=\"1616051508487\" />\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.center\" timestamp=\"1616051508486\">\n      <screen x=\"0\" y=\"0\" width=\"2560\" height=\"1440\" />\n    </state>\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.center/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440\" timestamp=\"1616051508486\" />\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.left\" timestamp=\"1616051508485\">\n      <screen x=\"0\" y=\"0\" width=\"2560\" height=\"1440\" />\n    </state>\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.left/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440\" timestamp=\"1616051508485\" />\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.right\" timestamp=\"1616051508486\">\n      <screen x=\"0\" y=\"0\" width=\"2560\" height=\"1440\" />\n    </state>\n    <state width=\"2518\" height=\"462\" key=\"GridCell.Tab.0.right/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440\" timestamp=\"1616051508486\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 22a23e2d017f307cac8757d9faf8e1fe19d7d6f4)
++++ .idea/workspace.xml	(date 1616052355000)
+@@ -3,6 +3,24 @@
+   <component name="AutoImportSettings">
+     <option name="autoReloadType" value="NONE" />
+   </component>
++  <component name="BranchesTreeState">
++    <expand>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++    </expand>
++    <select />
++  </component>
+   <component name="ChangeListManager">
+     <list default="true" id="a1b31fd7-b332-4633-8473-407bbc4409df" name="Default Changelist" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+@@ -13,8 +31,20 @@
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="main" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="hiddenUrls">
++      <set>
++        <option value="https://github.com/xppnb/shop.git" />
++      </set>
++    </option>
++  </component>
+   <component name="ProjectId" id="1pv6QX9LXNr4JywY36jWKTRkenu" />
+   <component name="ProjectViewState">
+     <option name="showLibraryContents" value="true" />
+@@ -48,22 +78,37 @@
+     </task>
+     <servers />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+   <component name="WindowStateProjectService">
+-    <state width="2518" height="462" key="GridCell.Tab.0.bottom" timestamp="1616051508487">
++    <state width="2518" height="462" key="GridCell.Tab.0.bottom" timestamp="1616052322359">
+       <screen x="0" y="0" width="2560" height="1440" />
+     </state>
+-    <state width="2518" height="462" key="GridCell.Tab.0.bottom/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616051508487" />
+-    <state width="2518" height="462" key="GridCell.Tab.0.center" timestamp="1616051508486">
++    <state width="2518" height="462" key="GridCell.Tab.0.bottom/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616052322359" />
++    <state width="2518" height="462" key="GridCell.Tab.0.center" timestamp="1616052322358">
+       <screen x="0" y="0" width="2560" height="1440" />
+     </state>
+-    <state width="2518" height="462" key="GridCell.Tab.0.center/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616051508486" />
+-    <state width="2518" height="462" key="GridCell.Tab.0.left" timestamp="1616051508485">
++    <state width="2518" height="462" key="GridCell.Tab.0.center/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616052322358" />
++    <state width="2518" height="462" key="GridCell.Tab.0.left" timestamp="1616052322357">
+       <screen x="0" y="0" width="2560" height="1440" />
+     </state>
+-    <state width="2518" height="462" key="GridCell.Tab.0.left/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616051508485" />
+-    <state width="2518" height="462" key="GridCell.Tab.0.right" timestamp="1616051508486">
++    <state width="2518" height="462" key="GridCell.Tab.0.left/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616052322357" />
++    <state width="2518" height="462" key="GridCell.Tab.0.right" timestamp="1616052322359">
+       <screen x="0" y="0" width="2560" height="1440" />
+     </state>
+-    <state width="2518" height="462" key="GridCell.Tab.0.right/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616051508486" />
++    <state width="2518" height="462" key="GridCell.Tab.0.right/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616052322359" />
++    <state x="880" y="471" key="Vcs.Push.Dialog.v2" timestamp="1616052149419">
++      <screen x="0" y="0" width="2560" height="1440" />
++    </state>
++    <state x="880" y="471" key="Vcs.Push.Dialog.v2/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616052149419" />
+   </component>
+ </project>
+\ No newline at end of file

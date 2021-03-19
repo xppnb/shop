@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a39b27c8-ffaa-471d-b7e2-26b079ed5974" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/model/FloorModel/FloorData.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/model/FloorModel/FloorDataItem.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/model/FloorModel/data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pv9HsYn6Tu2cv8PJOW15bolyAC" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/model" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/model" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a39b27c8-ffaa-471d-b7e2-26b079ed5974" name="Default Changelist" comment="" />
+      <created>1616052611748</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1616052611748</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1093" y="440" key="#com.intellij.ide.util.MemberChooser" timestamp="1616053722447">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1093" y="440" key="#com.intellij.ide.util.MemberChooser/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616053722447" />
+    <state x="1008" y="438" key="#xdebugger.evaluate" timestamp="1616059811202">
+      <screen x="0" y="0" width="2560" height="1342" />
+    </state>
+    <state x="1040" y="390" key="#xdebugger.evaluate/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616055690198" />
+    <state x="1008" y="438" key="#xdebugger.evaluate/2560.343.1920.1055/0.0.2560.1342@0.0.2560.1342" timestamp="1616059811202" />
+    <state width="2518" height="267" key="GridCell.Tab.0.bottom" timestamp="1616060195547">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2518" height="267" key="GridCell.Tab.0.bottom/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616060195547" />
+    <state width="2518" height="267" key="GridCell.Tab.0.center" timestamp="1616060195546">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2518" height="267" key="GridCell.Tab.0.center/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616060195546" />
+    <state width="2518" height="267" key="GridCell.Tab.0.left" timestamp="1616060195545">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2518" height="267" key="GridCell.Tab.0.left/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616060195545" />
+    <state width="2518" height="267" key="GridCell.Tab.0.right" timestamp="1616060195547">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="2518" height="267" key="GridCell.Tab.0.right/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616060195547" />
+    <state x="945" y="345" key="run.anything.popup" timestamp="1616117477685">
+      <screen x="0" y="25" width="2560" height="1319" />
+    </state>
+    <state x="945" y="345" key="run.anything.popup/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616055956190" />
+    <state x="945" y="345" key="run.anything.popup/2560.343.1920.1055/0.25.2560.1319@0.25.2560.1319" timestamp="1616117477685" />
+    <state x="945" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1616118727859">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="945" y="331" width="670" height="676" key="search.everywhere.popup/2560.318.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1616118727859" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/net/http_service.dart</url>
+          <line>99</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint suspend="THREAD" type="dart-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
