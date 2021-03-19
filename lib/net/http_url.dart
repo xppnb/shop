@@ -7,5 +7,5 @@ const servicePath = {
   "home" : serviceUrl + "/homePageContent",
   "grid" : serviceUrl + "/girdImageContent",
   "recommend" : serviceUrl + "/recommendContent",
-  "":serviceUrl + "/",
+  "floor" : serviceUrl + "/floorContent",
 };

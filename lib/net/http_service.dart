@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_shop/model/AllModel.dart';
+
+import 'package:flutter_shop/model/FloorModel/FloorData.dart';
+
 import 'package:flutter_shop/model/GridModel/GridData.dart';
 import 'package:flutter_shop/model/HomeModel/homeData.dart';
 import 'package:flutter_shop/model/RecommendModel/RecommendData.dart';
@@ -72,6 +75,31 @@ Future getRecommendContent() async {
         var recommendData = RecommendData.fromJson(json.decode(s.toString()));
         print(recommendData.data.dataItemList[0].firstPrice);
         allModel.recommendDataItemList = recommendData.data.dataItemList;
+        return allModel;
+      } else {
+        throw Exception("后端出现异常");
+      }
+    } catch (e) {
+      print(e);
+      throw Exception("home网络请求出现异常");
+    }
+  });
+}
+
+Future getFloorContent() async {
+  return getRecommendContent().then((value) async {
+    try {
+      HttpClient httpClient = new HttpClient();
+      var httpClientRequest =
+          await httpClient.postUrl(Uri.parse(servicePath["floor"]));
+      httpClientRequest.headers.contentType =
+          ContentType("application/json", "charset=utf-8");
+      var httpClientResponse = await httpClientRequest.close();
+      if (httpClientResponse.statusCode == 200) {
+        var s = await httpClientResponse.transform(Utf8Decoder()).join();
+        var floorData = FloorData.fromJson(json.decode(s.toString()));
+        print(floorData.data.dataItemList[0].firstPrice);
+        allModel.floorDataItemList = floorData.data.dataItemList;
         return allModel;
       } else {
         throw Exception("后端出现异常");

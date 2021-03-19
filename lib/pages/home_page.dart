@@ -7,16 +7,25 @@ import 'package:flutter_shop/model/GridModel/GridDataItem.dart';
 import 'package:flutter_shop/model/HomeModel/DataItem.dart';
 import 'package:flutter_shop/model/HomeModel/data.dart';
 import 'package:flutter_shop/model/HomeModel/homeData.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_shop/model/AllModel.dart';
+import 'package:flutter_shop/model/FloorModel/FloorDataItem.dart';
+import 'package:flutter_shop/model/GridModel/GridDataItem.dart';
+import 'package:flutter_shop/model/HomeModel/DataItem.dart';
 import 'package:flutter_shop/model/RecommendModel/RecommendDataItem.dart';
 import 'package:flutter_shop/net/http_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   @override
   _MemberPageState createState() => _MemberPageState();
 }
 
-class _MemberPageState extends State<HomePage>  with AutomaticKeepAliveClientMixin{
+class _MemberPageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     // TODO: implement initState
@@ -54,6 +63,9 @@ class _MemberPageState extends State<HomePage>  with AutomaticKeepAliveClientMix
                   RecommendWidget(
                     recommendDataItemList: data.recommendDataItemList,
                   ),
+                  FloorWidget(
+                    floorDataItemList: data.floorDataItemList,
+                  ),
                 ],
               ),
             ],
@@ -64,11 +76,9 @@ class _MemberPageState extends State<HomePage>  with AutomaticKeepAliveClientMix
           );
         }
       },
-      future: getRecommendContent(),
+      future: getFloorContent(),
     ));
   }
-
-
 }
 
 ///轮播图
@@ -277,12 +287,7 @@ class RecommendWidget extends StatelessWidget {
   Widget recommendList(index) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          left: BorderSide(
-            width: 1,color: Colors.grey
-          )
-        )
-      ),
+          border: Border(left: BorderSide(width: 1, color: Colors.grey))),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -317,6 +322,327 @@ class RecommendWidget extends StatelessWidget {
         children: [
           recommendText(),
           recommendContext(),
+        ],
+      ),
+    );
+  }
+}
+
+///楼层
+class FloorWidget extends StatelessWidget {
+  List<FloorDataItem> floorDataItemList = [];
+
+  FloorWidget({this.floorDataItemList});
+
+  ///第一张图片
+  Widget topImage() {
+    return Container(
+        width: ScreenUtil().setWidth(750),
+        height: ScreenUtil().setHeight(200),
+        child: ClipRRect(
+          child:
+              Image.network(floorDataItemList[0].fistImage, fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(120),
+        ));
+  }
+
+  ///第一部分楼层
+  Widget firstFloor() {
+    return Container(
+      height: ScreenUtil().setHeight(400),
+      child: Row(
+        children: [
+          firsetLeft(),
+          firstFloorRight(),
+        ],
+      ),
+    );
+  }
+
+  ///第一部分左边
+  Widget firsetLeft() {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border(
+        bottom: BorderSide(width: 1, color: Colors.grey),
+      )),
+      height: ScreenUtil().setHeight(400),
+      width: ScreenUtil().setWidth(375),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(floorDataItemList[0].name),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  floorDataItemList[0].title,
+                  style: TextStyle(color: Colors.grey),
+                ),
+                Text(
+                  "¥" + floorDataItemList[0].firstPrice.toString(),
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+            Image.network(
+              floorDataItemList[0].image,
+              fit: BoxFit.contain,
+              width: ScreenUtil().setHeight(333),
+              height: ScreenUtil().setHeight(250),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ///第一部分右边
+  Widget firstFloorRight() {
+    return Container(
+        decoration: BoxDecoration(
+            border: Border(
+          left: BorderSide(width: 1, color: Colors.grey),
+          bottom: BorderSide(width: 1, color: Colors.grey),
+        )),
+        width: ScreenUtil().setWidth(375),
+        height: ScreenUtil().setHeight(400),
+        child: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(width: 1, color: Colors.grey))),
+              width: ScreenUtil().setWidth(375),
+              height: ScreenUtil().setHeight(200),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: ScreenUtil().setHeight(200),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(floorDataItemList[1].name),
+                            Text(
+                              floorDataItemList[1].title,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: ScreenUtil().setSp(20)),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5, left: 10),
+                          child: Text(
+                            "¥" + floorDataItemList[1].firstPrice.toString(),
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.network(
+                    floorDataItemList[1].image,
+                    fit: BoxFit.contain,
+                    width: ScreenUtil().setWidth(100),
+                    height: ScreenUtil().setHeight(200),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              height: ScreenUtil().setHeight(200),
+              width: ScreenUtil().setWidth(375),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: ScreenUtil().setHeight(200),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(floorDataItemList[2].name),
+                            Text(
+                              floorDataItemList[2].title,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: ScreenUtil().setSp(20)),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15, left: 10),
+                          child: Text(
+                            "¥" + floorDataItemList[2].firstPrice.toString(),
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.network(
+                    floorDataItemList[2].image,
+                    fit: BoxFit.contain,
+                    width: ScreenUtil().setWidth(160),
+                    // height: ScreenUtil().setHeight(200),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ));
+  }
+
+  ///第一部分下面
+  Widget firstFloorBottom() {
+    return Container(
+      padding: EdgeInsets.only(left: 1),
+      height: ScreenUtil().setHeight(200),
+      width: ScreenUtil().setWidth(750),
+      child: Row(
+        children: [
+          ///左边
+          InkWell(
+            onTap: () {
+              print("123");
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                bottom: BorderSide(width: 1, color: Colors.grey),
+              )),
+              padding: EdgeInsets.all(8),
+              height: ScreenUtil().setHeight(200),
+              width: ScreenUtil().setWidth(373),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(floorDataItemList[3].name),
+                                Text(
+                                  floorDataItemList[3].title,
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: ScreenUtil().setSp(20)),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Text(
+                                "¥" +
+                                    floorDataItemList[3].firstPrice.toString(),
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Image.network(
+                        floorDataItemList[3].image,
+                        fit: BoxFit.contain,
+                        width: ScreenUtil().setWidth(100),
+                        height: ScreenUtil().setHeight(160),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          ///右边
+          Container(
+            decoration: BoxDecoration(
+                border: Border(
+              left: BorderSide(width: 1, color: Colors.grey),
+              bottom: BorderSide(width: 1, color: Colors.grey),
+            )),
+            padding: EdgeInsets.all(8),
+            height: ScreenUtil().setHeight(200),
+            width: ScreenUtil().setWidth(375),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(floorDataItemList[4].name),
+                              Text(
+                                floorDataItemList[4].title,
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: ScreenUtil().setSp(20)),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Text(
+                              "¥" + floorDataItemList[4].firstPrice.toString(),
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Image.network(
+                      floorDataItemList[4].image,
+                      fit: BoxFit.contain,
+                      width: ScreenUtil().setWidth(100),
+                      height: ScreenUtil().setHeight(160),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: ScreenUtil().setWidth(750),
+      height: ScreenUtil().setHeight(850),
+      child: Column(
+        children: [
+          topImage(),
+          firstFloor(),
+          firstFloorBottom(),
         ],
       ),
     );
