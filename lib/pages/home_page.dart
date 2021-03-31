@@ -1,20 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/model/AllModel.dart';
 import 'package:flutter_shop/model/GridModel/GridDataItem.dart';
 import 'package:flutter_shop/model/HomeModel/DataItem.dart';
-import 'package:flutter_shop/model/HomeModel/data.dart';
-import 'package:flutter_shop/model/HomeModel/homeData.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_shop/model/AllModel.dart';
 import 'package:flutter_shop/model/FloorModel/FloorDataItem.dart';
-import 'package:flutter_shop/model/GridModel/GridDataItem.dart';
-import 'package:flutter_shop/model/HomeModel/DataItem.dart';
 import 'package:flutter_shop/model/RecommendModel/RecommendDataItem.dart';
 import 'package:flutter_shop/net/http_service.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,6 +20,10 @@ class HomePage extends StatefulWidget {
 
 class _MemberPageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+  List<RecommendDataItem> hotGoodsList = [];
+  int page = 1;
+  AllModel data;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -42,7 +40,8 @@ class _MemberPageState extends State<HomePage>
         body: FutureBuilder(
       builder: (context, snap) {
         if (snap.hasData) {
-          var data = snap.data as AllModel;
+          data = snap.data as AllModel;
+          getHotList();
           return ListView(
             children: [
               Column(
@@ -66,6 +65,7 @@ class _MemberPageState extends State<HomePage>
                   FloorWidget(
                     floorDataItemList: data.floorDataItemList,
                   ),
+                  hotGoods(),
                 ],
               ),
             ],
@@ -78,6 +78,75 @@ class _MemberPageState extends State<HomePage>
       },
       future: getFloorContent(),
     ));
+  }
+
+  ///专区标题
+  Widget hotTitle = Container(
+    margin: EdgeInsets.only(top: 10,bottom: 10),
+    alignment: Alignment.center,
+    child: Text("火爆专区",style: TextStyle(fontWeight: FontWeight.w800),),
+  );
+
+  ///获取商品
+  void getHotList() {
+    List<RecommendDataItem> newGoodsList = data.recommendDataItemList;
+    hotGoodsList.addAll(newGoodsList);
+  }
+
+  ///流式布局
+  Widget wrapList() {
+    if (hotGoodsList.length != 0) {
+      List<Widget> listWidget = hotGoodsList.map((e) {
+        return InkWell(
+          onTap: () {},
+          child: Container(
+            width: ScreenUtil().setWidth(372),
+            height: ScreenUtil().setHeight(400),
+            color: Colors.white,
+            padding: EdgeInsets.all(5),
+            margin: EdgeInsets.only(bottom: 3),
+            child: Column(
+              children: [
+                Image.network(
+                  e.image,
+                  width: ScreenUtil().setWidth(372),
+                  height: ScreenUtil().setHeight(300),
+                  fit: BoxFit.contain,
+                ),
+                SizedBox(
+                  height: ScreenUtil().setHeight(10),
+                ),
+                Text(
+                  "¥${e.nowPrice.toString()}",
+                  style: TextStyle(fontSize: ScreenUtil().setSp(26)),
+                ),
+                Text(
+                  "¥" + e.firstPrice.toString(),
+                  style: TextStyle(
+                      decoration: TextDecoration.lineThrough,
+                      fontSize: ScreenUtil().setSp(26),
+                      color: Colors.grey[500]),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList();
+      return Wrap(
+        spacing: 2,
+        children: listWidget,
+      );
+    } else {
+      return Text("");
+    }
+  }
+
+  Widget hotGoods() {
+    return Container(
+      child: Column(
+        children: [hotTitle, wrapList()],
+      ),
+    );
   }
 }
 
